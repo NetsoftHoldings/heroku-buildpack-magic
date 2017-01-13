@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e
+
+BIN_DIR=$(cd $(dirname $0); pwd)
+ROOT_DIR=$(dirname $BIN_DIR)
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+
+echo RootDir: $ROOT_DIR
+echo BuildDir: $BUILD_DIR
+echo HOME: $HOME
+
+mkdir -p $BUILD_DIR/vendor/libmagic/include/
+mkdir -p $BUILD_DIR/vendor/libmagic/lib/
+
+cp -R $ROOT_DIR/include/* $BUILD_DIR/vendor/libmagic/include/
+ln -s /usr/lib/x86_64-linux-gnu/libmagic.so.1.0.0 $BUILD_DIR/vendor/libmagic/lib/libmagic.so
+
+mkdir -p $BUILD_DIR/.bundle
+cat > $BUILD_DIR/.bundle/config << EOF
+---
+BUNDLE_BUILD__RUBY-FILEMAGIC: "--with-magic-dir=$BUILD_DIR/vendor/libmagic"
+EOF
+
+echo "Build list"
+ls $BUILD_DIR/.bundle
+echo "Home list"
+ls $HOME/.bundle
