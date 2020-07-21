@@ -11,7 +11,6 @@ ENV_DIR=$3
 
 echo RootDir: $ROOT_DIR
 echo BuildDir: $BUILD_DIR
-echo HOME: $HOME
 
 mkdir -p $BUILD_DIR/vendor/libmagic/include/
 mkdir -p $BUILD_DIR/vendor/libmagic/lib/
@@ -27,5 +26,3 @@ EOF
 
 echo "Build list"
 ls $BUILD_DIR/.bundle
-echo "Home list"
-ls $HOME/.bundle
